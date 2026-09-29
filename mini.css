@@ -1,0 +1,64 @@
+:root {
+  --bg: #fff7f3;
+  --card: #ffffff;
+  --ink: #5b4a5e;
+  --muted: #a898a8;
+  --line: #f3e6ea;
+  --accent: #f28aa5;
+  --soft: #fde3ea;
+  --g1: #f7a8b8;
+  --g2: #c9b6e4;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #2a2330; --card: #362d3d; --ink: #f3e8f0; --muted: #a797ab; --line: #463b4e; --soft: #4a3a4d; }
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  display: grid;
+  place-content: center;
+  gap: 8px;
+  background: var(--bg);
+  color: var(--ink);
+  font: 600 12px/1.3 'Nunito', ui-rounded, 'SF Pro Rounded', system-ui, sans-serif;
+  overflow: hidden;
+}
+[hidden] { display: none !important; }
+
+.mini { display: flex; align-items: center; gap: 12px; padding: 4px; }
+.mini[data-phase='break'] { --accent: #5fbf9f; --soft: #daf3ea; --g1: #a8ddc9; --g2: #a9cdf0; }
+@media (prefers-color-scheme: dark) {
+  .mini[data-phase='break'] { --soft: #33483f; }
+}
+
+.ring { position: relative; width: 56px; height: 56px; flex-shrink: 0; }
+.ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.ring circle { fill: none; stroke-width: 5; }
+.track { stroke: var(--line); }
+.prog { stroke: url(#mgrad); stroke-linecap: round; transition: stroke-dashoffset 0.3s linear; }
+.g1 { stop-color: var(--g1); }
+.g2 { stop-color: var(--g2); }
+.dot { position: absolute; inset: 0; display: grid; place-items: center; font-size: 19px; }
+.mini.running .dot { animation: pulse 2.4s ease-in-out infinite; }
+@keyframes pulse { 50% { transform: scale(1.15); } }
+
+.info { display: flex; flex-direction: column; min-width: 78px; }
+.phase { font-size: 10px; text-transform: uppercase; letter-spacing: 1.1px; color: var(--muted); font-weight: 800; }
+.time { font-size: 26px; font-weight: 800; font-variant-numeric: tabular-nums; letter-spacing: 0.5px; line-height: 1.1; }
+.today { font-size: 11px; color: var(--accent); font-weight: 800; }
+
+.btns { display: grid; grid-template-columns: repeat(3, 28px); gap: 4px; }
+button {
+  all: unset; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%;
+  color: var(--muted); cursor: pointer; transition: background 0.2s, color 0.2s;
+}
+button:hover { background: var(--soft); color: var(--accent); }
+button svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+button.main { background: linear-gradient(135deg, var(--g1), var(--accent)); color: #fff; }
+button.main svg { fill: currentColor; }
+button.main:hover { color: #fff; filter: brightness(1.05); }
+button.on { color: var(--accent); background: var(--soft); }
+
+.note { margin: 0; text-align: center; color: var(--muted); font-size: 11px; padding: 0 12px; }
